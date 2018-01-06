@@ -2,7 +2,7 @@ import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
   LOGIN_USER_SUCCESS,
-  LOGIN_USER_FAILED
+  LOGIN_USER_FAIL
 } from './types';
 
 import firebase from 'firebase';
@@ -36,9 +36,7 @@ export const loginUser = ({ email, password }) => {
             loginUserSuccess(dispatch, user);
           })
           .catch(err => {
-            dispatch({
-              type: LOGIN_USER_FAILED
-            })
+            loginUserFail(dispatch);
           })
       });
   }
@@ -47,5 +45,11 @@ export const loginUser = ({ email, password }) => {
 const loginUserSuccess = (dispatch, user) => {
   dispatch({
     type: LOGIN_USER_SUCCESS, payload: user
+  })
+}
+
+const loginUserFail = (dispatch, user) => {
+  dispatch({
+    type: LOGIN_USER_FAIL
   })
 }
