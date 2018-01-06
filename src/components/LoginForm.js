@@ -18,6 +18,7 @@ export class LoginForm extends Component {
             label="Email"
             placeholder="email@example.com"
             onChangeText={this.onEmailChange.bind(this)}
+            vaue={this.props.email}
           />
         </CardSection>
 
@@ -39,4 +40,10 @@ export class LoginForm extends Component {
   }
 }
 
-export default connect(null, { emailChange })(LoginForm);
+const mapStateToProps = state => {
+  return {
+    email: state.auth.email
+  }
+}
+
+export default connect(mapStateToProps, { emailChange })(LoginForm);

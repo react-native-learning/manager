@@ -7,7 +7,10 @@ export default (state = INITAL_STATE, action) => {
 
   switch (action.type) {
     case EMAIL_CHANGED:
-      return state;
+      // state.email = action.payload;
+      let newState = { ...state, email: action.payload };
+      console.log('AuthReducer:newState', newState);
+      return newState;
     default:
       return state;
   }
