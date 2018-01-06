@@ -40,6 +40,6 @@ export default (state = INITAL_STATE, action) => {
         error: 'Authentication Failed.'
       };
     default:
-      return newState;
+      return state;
   }
 }
