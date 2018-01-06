@@ -1,11 +1,14 @@
 import {
   EMAIL_CHANGED,
-  PASSWORD_CHANGED
+  PASSWORD_CHANGED,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAILED
 } from "../actions/types";
 
 const INITAL_STATE = {
   email: '',
-  password: ''
+  password: '',
+  user: null
 };
 
 export default (state = INITAL_STATE, action) => {
@@ -14,14 +17,20 @@ export default (state = INITAL_STATE, action) => {
 
   switch (action.type) {
     case EMAIL_CHANGED:
-      // state.email = action.payload;
       newState = { ...state, email: action.payload };
-      console.log('AuthReducer:newState', newState);
+      console.log('AuthReducer:newState(EMAIL_CHANGED)', newState);
       return newState;
     case PASSWORD_CHANGED:
-      // state.email = action.payload;
       newState = { ...state, password: action.payload };
-      console.log('AuthReducer:newState', newState);
+      console.log('AuthReducer:newState(PASSWORD_CHANGED)', newState);
+      return newState;
+    case LOGIN_USER_SUCCESS:
+      newState = { ...state, user: action.payload };
+      console.log('AuthReducer:newState(LOGIN_USER_SUCCESS)', newState);
+      return newState;
+    case LOGIN_USER_FAILED:
+      newState = { ...state, user: null };
+      console.log('AuthReducer:newState(LOGIN_USER_FAILED)', newState);
       return newState;
     default:
       return newState;
