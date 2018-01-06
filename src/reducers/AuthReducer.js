@@ -26,11 +26,11 @@ export default (state = INITAL_STATE, action) => {
       console.log('AuthReducer:newState(PASSWORD_CHANGED)', newState);
       return newState;
     case LOGIN_USER_SUCCESS:
-      newState = { ...state, user: action.payload };
+      newState = { ...state, user: action.payload, error: '' };
       console.log('AuthReducer:newState(LOGIN_USER_SUCCESS)', newState);
       return newState;
     case LOGIN_USER_FAIL:
-      newState = { ...state, error: 'Authentication Failed.' };
+      newState = { ...state, error: 'Authentication Failed.', user: null };
       console.log('AuthReducer:newState(LOGIN_USER_FAILED)', newState);
       return newState;
     default:
