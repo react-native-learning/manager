@@ -15,42 +15,30 @@ const INITAL_STATE = {
 };
 
 export default (state = INITAL_STATE, action) => {
-  let newState = state;
   console.log('AuthReducer:action', action);
 
   switch (action.type) {
     case EMAIL_CHANGED:
-      newState = { ...state, email: action.payload };
-      console.log('AuthReducer:newState(EMAIL_CHANGED)', newState);
-      return newState;
+      return { ...state, email: action.payload };
     case PASSWORD_CHANGED:
-      newState = { ...state, password: action.payload };
-      console.log('AuthReducer:newState(PASSWORD_CHANGED)', newState);
-      return newState;
+      return { ...state, password: action.payload };
     case LOGIN_REQUEST:
-      newState = {
+      return {
         ...state,
-        loading: true,
-        error: ''
+        loading: true
       };
-      console.log('AuthReducer:newState(LOGIN_REQUEST)', newState);
-      return newState;
     case LOGIN_USER_SUCCESS:
-      newState = {
+      return {
         ...state,
         ...INITAL_STATE,
         user: action.payload
       };
-      console.log('AuthReducer:newState(LOGIN_USER_SUCCESS)', newState);
-      return newState;
     case LOGIN_USER_FAIL:
-      newState = {
+      return {
         ...state,
         ...INITAL_STATE,
         error: 'Authentication Failed.'
       };
-      console.log('AuthReducer:newState(LOGIN_USER_FAILED)', newState);
-      return newState;
     default:
       return newState;
   }
