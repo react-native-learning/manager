@@ -15,8 +15,6 @@ const INITAL_STATE = {
 };
 
 export default (state = INITAL_STATE, action) => {
-  console.log('AuthReducer:action', action);
-
   switch (action.type) {
     case EMAIL_CHANGED:
       return { ...state, email: action.payload };
@@ -25,7 +23,8 @@ export default (state = INITAL_STATE, action) => {
     case LOGIN_REQUEST:
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: ''
       };
     case LOGIN_USER_SUCCESS:
       return {
@@ -36,8 +35,8 @@ export default (state = INITAL_STATE, action) => {
     case LOGIN_USER_FAIL:
       return {
         ...state,
-        ...INITAL_STATE,
-        error: 'Authentication Failed.'
+        error: 'Authentication Failed.',
+        loading: false
       };
     default:
       return state;
