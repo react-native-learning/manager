@@ -10,7 +10,7 @@ import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 
 import reducers from './reducers';
-import RouterComponent from './Router.js';
+import RootNavigator from './Router.js';
 
 class App extends Component {
 
@@ -30,7 +30,7 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-        <RouterComponent />
+        <RootNavigator />
       </Provider>
     );
   }

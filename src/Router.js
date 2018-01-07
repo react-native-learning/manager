@@ -1,14 +1,13 @@
-import React from 'react';
-import { Scene, Router } from 'react-native-router-flux';
+import { StackNavigator } from 'react-navigation';
+import { LoginForm } from './components/LoginForm';
 
-import LoginForm from './components/LoginForm';
+const RootNavigator = StackNavigator({
+  Home: {
+    screen: LoginForm,
+    navigationOptions: {
+      headerTitle: 'Login',
+    },
+  }
+});
 
-const RouterComponent = () => {
-  return (
-    <Router>
-      <Scene key="login" component={LoginForm} title="Please Login" />
-    </Router>
-  )
-}
-
-export default RouterComponent;
+export default RootNavigator;
