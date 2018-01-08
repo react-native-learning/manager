@@ -15,6 +15,7 @@ const INITAL_STATE = {
 };
 
 export default (state = INITAL_STATE, action) => {
+  console.log('authReduce:action', action);
   switch (action.type) {
     case EMAIL_CHANGED:
       return { ...state, email: action.payload };

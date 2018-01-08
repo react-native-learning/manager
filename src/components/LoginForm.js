@@ -3,13 +3,10 @@ import { View, Text } from 'react-native';
 
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
+import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 
-import {
-  emailChange,
-  passwordChange,
-  loginUser
-} from '../actions';
+import * as UserAction from "../actions";
 
 export class LoginForm extends Component {
 
@@ -22,6 +19,7 @@ export class LoginForm extends Component {
   }
 
   onButtonPress() {
+    console.log(this.props);
     const { email, password } = this.props;
 
     this.props.loginUser({ email, password });
@@ -99,10 +97,6 @@ const mapStateToProps = state => {
   }
 }
 
-//TODO dispatchToProps
+const mapDispatchToProps = dispatch => bindActionCreators(UserAction, dispatch);
 
-export default connect(mapStateToProps, {
-  emailChange,
-  passwordChange,
-  loginUser
-})(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
