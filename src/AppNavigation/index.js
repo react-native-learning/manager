@@ -1,24 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import Routes from "./routes";
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+
 import {
   addNavigationHelpers,
   StackNavigator
 } from 'react-navigation';
 
-export const AppNavigator = StackNavigator(Routes
+export const AppNavigator = StackNavigator(
+  Routes
   , {
-    initialRouteName: 'login',
+    initialRouteName: 'home',
     mode: 'modal',
     headerMode: "none",
-    navigationOptions: {
-      title: ({ state }) => {
-        if (state.params) {
-          return `${state.params.title}`;
-        }
-      }
-    }
+    // navigationOptions: {
+    //   title: ({ state }) => {
+    //     if (state.params) {
+    //       return `${state.params.title}`;
+    //     }
+    //   }
+    // }
   }
 );
 
@@ -26,10 +28,10 @@ const AppNavigation = ({ dispatch, nav }) => (
   <AppNavigator navigation={addNavigationHelpers({ dispatch, state: nav })} />
 );
 
-AppNavigation.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  nav: PropTypes.object.isRequired,
-};
+// AppNavigation.propTypes = {
+//   dispatch: PropTypes.func.isRequired,
+//   nav: PropTypes.object.isRequired,
+// };
 
 const mapStateToProps = state => ({
   nav: state.nav,
