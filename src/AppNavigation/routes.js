@@ -1,17 +1,24 @@
-import LoginForm from '../components/LoginForm';
-import EmployeeList from '../components/EmployeeList';
+import LoginForm from '../containers/login';
+import SignUpScreen from '../containers/signup';
+import HomeScreen from '../containers/home';
 
 const Routes = {
   login: {
     screen: LoginForm,
     navigationOptions: {
-      headerTitle: 'Login',
+      title: 'Login',
     }
   },
-  employeeList: {
-    screen: EmployeeList,
+  signup: {
+    screen: SignUpScreen,
     navigationOptions: {
-      headerTitle: 'EmployeeList',
+      title: 'signup',
+    }
+  },
+  home: {
+    screen: HomeScreen,
+    navigationOptions: {
+      title: 'home',
     }
   }
 };

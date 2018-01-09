@@ -4,7 +4,10 @@ import {
   LOGIN_REQUEST,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
-  GOTO_EMPLOYEELIST
+
+  GOTO_HOME,
+  GOTO_LOGIN,
+  GOTO_SIGNUP
 } from './types';
 
 // import firebase from 'firebase';
@@ -65,9 +68,23 @@ export const loginUserFail = () => {
   }
 }
 
-export const goToEmployeeList = () => {
-  console.log('action:goToEmployeeList');
+export const goToHome = () => {
+  console.log('action:goToHome');
   return {
-    type: GOTO_EMPLOYEELIST
+    type: GOTO_HOME
+  }
+}
+
+export const goToLogin = () => {
+  console.log('action:goToLogin');
+  return {
+    type: GOTO_LOGIN
+  }
+}
+
+export const goToSignUp = () => {
+  console.log('action:goToSignUp');
+  return {
+    type: GOTO_SIGNUP
   }
 }

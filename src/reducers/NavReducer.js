@@ -1,5 +1,11 @@
-import { AppNavigator } from '../AppNavigation';
+import { AppNavigator } from '../appNavigation';
 import { NavigationActions } from 'react-navigation';
+
+import {
+    GOTO_HOME,
+    GOTO_LOGIN,
+    GOTO_SIGNUP
+} from '../actions/types';
 
 // //Force a Init of the main router
 // let initialNavState = AppNavigator.router.getStateForAction(
@@ -21,15 +27,21 @@ const NavReducer = (state, action) => {
     let newState;
 
     switch (action.type) {
-        case 'goToLogin':
+        case GOTO_LOGIN:
             newState = AppNavigator.router.getStateForAction(
                 NavigationActions.navigate({ routeName: 'login' }),
                 state
             );
             break;
-        case 'goToEmployeeList':
+        case GOTO_SIGNUP:
             newState = AppNavigator.router.getStateForAction(
-                NavigationActions.navigate({ routeName: 'employeeList' }),
+                NavigationActions.navigate({ routeName: 'signup' }),
+                state
+            );
+            break;
+        case GOTO_HOME:
+            newState = AppNavigator.router.getStateForAction(
+                NavigationActions.navigate({ routeName: 'home' }),
                 state
             );
             break;

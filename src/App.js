@@ -12,7 +12,7 @@ import getStore from "./store";
 
 // import reducers from './reducers';
 // import RootNavigator from './Router.js';
-import AppNavigation from './AppNavigation';
+import AppNavigation from './appNavigation';
 
 class App extends Component {
   store = getStore();

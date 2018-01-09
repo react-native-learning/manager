@@ -5,7 +5,7 @@ import authUtil from '../utils/authUtil';
 import {
   loginUserSuccess,
   loginUserFail,
-  goToEmployeeList
+  goToHome
 } from '../actions';
 
 // worker Saga: will be fired on LOGIN_REQUEST actions
@@ -19,7 +19,7 @@ export function* fetchLoginUser(action) {
       yield put(loginUserSuccess(userInfo));
 
       // redirect to EmployeeList
-      yield put(goToEmployeeList());
+      yield put(goToHome());
     } else {
       yield put(loginUserFail());
     }
