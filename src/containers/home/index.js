@@ -1,117 +1,314 @@
-import React from "react";
-import { Image } from 'react-native';
-import { Container, Header, Title, Left, Icon, Right, Button, Body, Content, Text, Card, CardItem, Thumbnail } from "native-base";
+import React, { Component } from 'react';
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Picker,
+  Button,
+  TouchableHighlight
+} from 'react-native';
 
-import { TouchableOpacity, StyleSheet, View } from 'react-native';
-import Modal from 'react-native-modal';
+import currencyUlti from '../../utils/currencyUlti';
+// import { setTimeout } from 'timers';
 
-import { HeaderComp } from '../../components/common';
-
-export default class HomeScreen extends React.Component {
+export default class HomeScreen extends Component {
 
   state = {
-    isModalVisible: false
+    country: 'Romania',
+    uri: require('./images/romania-icon.png'),
+    allCurrency: [],
+
+    selected: {
+      currencyFrom: {
+        unit: '',
+        flg: ''
+      },
+      currencyTo: {
+        unit: '',
+        flg: ''
+      },
+    }
   }
 
-  _toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible })
+  constructor(props) {
+    super(props);
+
+    let getAllCurrency = new Promise((res) => {
+      // setTimeout(() => {
+      res(currencyUlti.getAllCurrency());
+      // }, 2000);
+    })
+
+    getAllCurrency.then(res => {
+      console.log('res', res);
+      this.setState({
+        allCurrency: res.currencies,
+        selected: {
+          currencyFrom: {
+            unit: res.currencies[0].unit,
+            flg: res.currencies[0].flg,
+          },
+          currencyTo: {
+            unit: res.currencies[0].unit,
+            flg: res.currencies[0].flg,
+          }
+        }
+      });
+      // console.log('this.state.selected', this.state.selected);
+    })
+  }
+
+  _onChangeCurrencyFrom(currencyFrom) {
+    // console.log('this.state 1', this.state);
+    // console.log('currencyTo', currencyTo);
+    this.setState({
+      selected: {
+        currencyFrom: {
+          unit: currencyFrom.unit,
+          flg: currencyFrom.flg
+        },
+        currencyTo: {
+          unit: this.state.selected.currencyTo.unit,
+          flg: this.state.selected.currencyTo.flg
+        }
+      }
+    })
+    // console.log('this.state 2', this.state);
+  }
+
+  _onChangeCurrencyTo(currencyTo) {
+    // console.log('this.state 1', this.state);
+    // console.log('currencyTo', currencyTo);
+    this.setState({
+      selected: {
+        currencyFrom: {
+          unit: this.state.selected.currencyFrom.unit,
+          flg: this.state.selected.currencyFrom.flg
+        },
+        currencyTo: {
+          unit: currencyTo.unit,
+          flg: currencyTo.flg
+        }
+      }
+    })
+    // console.log('this.state 2', this.state);
+  }
+
 
   render() {
+    var list = this.state.allCurrency.map((item, index) => {
+      console.log('item', item);
+      // var desc = repos[index].description ? <Text style={styles.description}> {repos[index].description} </Text> : <View />;
+      return (
+        <Picker.Item key={index} label={item.country} value={item.unit} />
+      )
+    });
+
     return (
-      <Container>
+      <View style={styles.container}>
+        {/* header */}
+        <View style={styles.header}>
+          <Image style={styles.logo} source={require('./images/logo.png')} />
+          <Text style={styles.textBold}>Easy Change</Text>
+          <Image style={styles.menu_image} source={require('./images/if_menu.png')} />
+        </View>
+        {/* contain */}
+        <View style={styles.contain}>
+          {/* form-1*/}
+          <View style={styles.select1}>
+            <View style={styles.form_continuer}>
 
-        <HeaderComp
-          headerText="Home"
-          isLogo={true}
-          nav={this.props.navigation}
-        />
+              <View style={styles.select_1}>
+                <Text style={styles.form_continuer_text}>Je souhaite changer des</Text>
+                <View style={styles.contain_picker}>
+                  {console.log('flg currencyFrom', this.state.selected.currencyFrom.flg)}
+                  <Image style={styles.menu_icon} source={{ uri: this.state.selected.currencyFrom.flg }} />
+                  <View style={styles.picker}>
+                    {console.log('sssssssss currencyFrom', this.state.selected.currencyFrom.unit)}
+                    <Picker
+                      selectedValue={this.state.selected.currencyFrom.unit}
+                      onValueChange={(itemValue, itemIndex) => {
+                        this._onChangeCurrencyFrom(this.state.allCurrency[itemIndex])
+                      }}
+                    >
+                      {list}
+                    </Picker>
+                  </View>
+                </View>
+              </View>
 
-        <Content padder>
-          <View>
-            <View style={styles.selectBoxContainer}>
-              <Text>Modal</Text>
-              <Button full
-                style={{
-                  height: 30,
-                  padding: 5,
-                  flexDirection: 'row'
-                }}
-                onPress={this._toggleModal}>
-                <Left style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                  <Image
-                    source
-                    source={require("../../assets/images/us.jpg")}
-                    style={{ width: 25, height: 15, marginRight: 5 }}
-                  />
-                  <Text>Modal USSSSSS</Text>
-                </Left>
-                <Right>
-                  <Icon name="menu" />
-                </Right>
-              </Button>
+              <View style={styles.select_1}>
+                <Text style={styles.form_continuer_text}>En</Text>
+                <View style={styles.contain_picker}>
+                  {console.log('flg currencyTo', this.state.selected.currencyTo.flg)}
+                  <Image style={styles.menu_icon} source={{ uri: this.state.selected.currencyTo.flg }} />
+                  <View style={styles.picker}>
+                    {console.log('sssssssss currencyTo', this.state.selected.currencyTo.unit)}
+                    <Picker
+                      selectedValue={this.state.selected.currencyTo.unit}
+                      onValueChange={(itemValue, itemIndex) =>
+                        this._onChangeCurrencyTo(this.state.allCurrency[itemIndex])
+                      }
+                    >
+                      {list}
+                    </Picker>
+                  </View>
+                </View>
+              </View>
+
+              <View style={styles.select_1}>
+                <View style={styles.buttonContainer}>
+                  <Button scolor="#009EDF" title="CONTINUER"
+                    onPress={() => { /*TODO*/ }} />
+                </View>
+              </View>
+
             </View>
+          </View>
+          {/* form-2*/}
+          <View style={styles.select2}>
+            <View style={styles.form_2}>
+              <View style={styles.select_1}>
+                <View style={styles.form_2_button}>
+                  <Image style={styles.form_2_icon} source={require('./images/graph-icon.png')} />
+                  <View style={styles.picker}>
+                    <Text>SUIVRE LE COURS DE LA ROUPIE</Text>
+                  </View>
+                </View>
+              </View>
 
-            <View style={styles.selectBoxContainer} >
-              <Text>Modal</Text>
-              <Button full
-                style={{ marginTop: 10 }}
-                onPress={this._toggleModal}>
-                <Left>
-                  <Text>Modal</Text>
-                </Left>
-                <Right>
-                  <Text>Modal</Text>
-                </Right>
-              </Button>
+              <View style={styles.select_1}>
+                <View style={styles.form_2_button}>
+                  <Image style={styles.form_2_icon} source={require('./images/convert-icon.png')} />
+                  <View style={styles.picker}>
+                    <Text>CONVERTIR UN MONTANT</Text>
+                  </View>
+                </View>
+              </View>
+
+              <View style={styles.select_1}>
+                <View style={styles.form_2_button}>
+                  <Image style={styles.form_2_icon} source={require('./images/location-icon.png')} />
+                  <View style={styles.picker}>
+                    <Text>NOS AGENCES</Text>
+                  </View>
+                </View>
+              </View>
+
             </View>
-
-            <Button full
-              style={{ marginTop: 10 }}
-              onPress={() => this.props.navigation.navigate("Chat")}>
-              <Text>Chat With People</Text>
-            </Button>
           </View>
-          <View>
-
-            <Button full
-              style={{ marginTop: 10 }}
-              onPress={() => this.props.navigation.navigate("Chat")}>
-              <Text>Chat With People</Text>
-            </Button>
-
-            <Button full
-              style={{ marginTop: 10 }}
-              onPress={() => this.props.navigation.navigate("Chat")}>
-              <Text>Chat With People</Text>
-            </Button>
-
-            <Button full
-              style={{ marginTop: 10 }}
-              onPress={() => this.props.navigation.navigate("Chat")}>
-              <Text>Chat With People</Text>
-            </Button>
-          </View>
-        </Content>
-
-        <Modal isVisible={this.state.isModalVisible}>
-          <View style={{ flex: 1, backgroundColor: 'red' }}>
-            <Text>Hello!</Text>
-            <TouchableOpacity onPress={this._toggleModal}>
-              <Text>Hide me!</Text>
-            </TouchableOpacity>
-          </View>
-        </Modal>
-
-      </Container>
+        </View>
+        {/* footer */}
+        <View style={styles.footer}>
+        </View>
+      </View>
     );
   }
 }
 
-const styles = {
-  selectBoxContainer: {
+const styles = StyleSheet.create({
+  container: {
     flex: 1,
+    backgroundColor: '#fdfeff'
+  },
+  header: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-  }
-}
+    backgroundColor: '#fdfeff',
+    borderBottomWidth: 0,
+    borderColor: '#000000',
+    elevation: 10,
+  },
+  contain: {
+    flex: 10,
+    flexDirection: 'column',
+    margin: 5
+  },
+  footer: {
+    flex: 1,
+    backgroundColor: '#fdfeff'
+  },
+  logo: {
+    width: '13%',
+    height: '70%',
+    marginLeft: 10,
+  },
+  menu_image: {
+    width: 30,
+    height: 30,
+    marginLeft: 10,
+    marginRight: 10
+  },
+  menu_icon: {
+    width: '15%',
+    height: '80%',
+    marginLeft: 20,
+    marginRight: 10
+  },
+  form_2_icon: {
+    width: '9%',
+    height: '65%',
+    marginLeft: 20,
+    marginRight: 10
+  },
+  textBold: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#4182bb'
+  },
+  select1: {
+    flex: 1.3,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: '#f4f9fd',
+  },
+  select2: {
+    flex: 1,
+    backgroundColor: '#F7FBFF',
+  },
+  select_1: {
+    flex: 1,
+  },
+  contain_picker: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#7df3fe',
+    margin: 10,
+  },
+  picker: {
+    width: '75%'
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    margin: 10,
+  },
+  form_continuer: {
+    flex: 1,
+    flexDirection: 'column',
+    margin: 10,
+    marginTop: 30,
+  },
+  form_continuer_text: {
+    color: '#276EB0',
+    fontSize: 15,
+    textAlign: 'center'
+  },
+  form_2_button: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    margin: 10,
+    borderWidth: 0.5,
+  },
+  form_2: {
+    flex: 1,
+    flexDirection: 'column',
+    margin: 10,
+  },
+});
