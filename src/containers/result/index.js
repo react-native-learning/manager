@@ -5,7 +5,8 @@ import {
   View,
   Dimensions,
   Image,
-  TouchableHighlight
+  TouchableHighlight,
+  TouchableNativeFeedback
 } from 'react-native';
 import { Container, Header, Footer, Content, List, ListItem, Thumbnail, Text, Body, Item, Input, Icon } from 'native-base';
 import ToggleSwitch from 'toggle-switch-react-native';
@@ -57,6 +58,11 @@ class Result extends Component {
       amount: amount,
       exchanged: amount * this.state.rateFrom
     })
+  }
+
+  _onGoToPayMentType() {
+    console.log('goToPaymentType')
+    this.props.goToPaymentType();
   }
 
   _onGoBack() {
@@ -168,7 +174,11 @@ class Result extends Component {
             </View>
 
             <View style={[styles.bgButton]}>
-              <Text style={styles.textButton}>COMMANDER</Text>
+              <TouchableHighlight
+                onPress={this._onGoToPayMentType.bind(this)}
+              >
+                <Text style={styles.textButton}>COMMANDER</Text>
+              </TouchableHighlight>
             </View>
 
           </View>

@@ -11,7 +11,8 @@ import {
   GOTO_RESULT,
   GOTO_BACK,
 
-  SET_EXCHANGE
+  SET_EXCHANGE,
+  GOTO_PAYMENT_TYPE
 } from './types';
 
 // import firebase from 'firebase';
@@ -97,6 +98,13 @@ export const goToResult = () => {
   console.log('action:goToResult');
   return {
     type: GOTO_RESULT
+  }
+}
+
+export const goToPaymentType = () => {
+  console.log('action:goToPaymentType');
+  return {
+    type: GOTO_PAYMENT_TYPE
   }
 }
 

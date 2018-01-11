@@ -3,6 +3,7 @@ import SignUpScreen from '../containers/signup';
 import HomeScreen from '../containers/home';
 import SideBar from '../containers/sideBar';
 import ResultScreen from '../containers/result';
+import BookingPayment from '../containers/bookingSelectPaymentType';
 
 const Routes = {
   login: {
@@ -33,6 +34,12 @@ const Routes = {
     screen: ResultScreen,
     navigationOptions: {
       title: 'result',
+    }
+  },
+  selectPayment: {
+    screen: BookingPayment,
+    navigationOptions: {
+      title: 'Select Payment',
     }
   }
 };

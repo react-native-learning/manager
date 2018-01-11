@@ -9,5 +9,6 @@ export const GOTO_LOGIN = 'goToLogin';
 export const GOTO_SIGNUP = 'goToSignUp';
 export const GOTO_RESULT = 'goToResult';
 export const GOTO_BACK = 'goToBack';
+export const GOTO_PAYMENT_TYPE = 'goToPaymentType';
 
 export const SET_EXCHANGE = 'currencyFrom';
