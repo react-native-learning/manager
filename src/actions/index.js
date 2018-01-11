@@ -7,7 +7,8 @@ import {
 
   GOTO_HOME,
   GOTO_LOGIN,
-  GOTO_SIGNUP
+  GOTO_SIGNUP,
+  GOTO_RESULT
 } from './types';
 
 // import firebase from 'firebase';
@@ -86,5 +87,12 @@ export const goToSignUp = () => {
   console.log('action:goToSignUp');
   return {
     type: GOTO_SIGNUP
+  }
+}
+
+export const goToResult = () => {
+  console.log('action:goToResult');
+  return {
+    type: GOTO_RESULT
   }
 }

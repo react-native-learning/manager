@@ -1,5 +1,6 @@
 export default currencyUlti = {
 
+  //all currency
   getAllCurrency() {
     return {
       "resultCode": 200,
@@ -18,7 +19,14 @@ export default currencyUlti = {
           "flg": "http://megastudy.edu.vn/upload/nation/flags/us_flag.jpg"
         }
       ]
-    };
-  }
+    }
+  },
 
-};
+  getExchangeRate(currencyFrom, currencyTo) {
+    return {
+      "resultCode": 200,
+      "resultMsg": "",
+      "rate": 37.77
+    }
+  }
+}

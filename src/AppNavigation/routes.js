@@ -2,6 +2,7 @@ import LoginForm from '../containers/login';
 import SignUpScreen from '../containers/signup';
 import HomeScreen from '../containers/home';
 import SideBar from '../containers/sideBar';
+import ResultScreen from '../containers/result';
 
 const Routes = {
   login: {
@@ -26,6 +27,12 @@ const Routes = {
     screen: SideBar,
     navigationOptions: {
       title: 'sideBar',
+    }
+  },
+  result: {
+    screen: ResultScreen,
+    navigationOptions: {
+      title: 'result',
     }
   }
 };

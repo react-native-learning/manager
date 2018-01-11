@@ -4,7 +4,8 @@ import { NavigationActions } from 'react-navigation';
 import {
     GOTO_HOME,
     GOTO_LOGIN,
-    GOTO_SIGNUP
+    GOTO_SIGNUP,
+    GOTO_RESULT
 } from '../actions/types';
 
 // //Force a Init of the main router
@@ -42,6 +43,12 @@ const NavReducer = (state, action) => {
         case GOTO_HOME:
             newState = AppNavigator.router.getStateForAction(
                 NavigationActions.navigate({ routeName: 'home' }),
+                state
+            );
+            break;
+        case GOTO_RESULT:
+            newState = AppNavigator.router.getStateForAction(
+                NavigationActions.navigate({ routeName: 'result' }),
                 state
             );
             break;

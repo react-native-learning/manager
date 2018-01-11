@@ -7,3 +7,6 @@ export const LOGIN_USER_FAIL = 'login_user_fail';
 export const GOTO_HOME = 'goToHome';
 export const GOTO_LOGIN = 'goToLogin';
 export const GOTO_SIGNUP = 'goToSignUp';
+export const GOTO_RESULT = 'goToResult';
+
+export const SET_EXCHANGE = 'currencyFrom';

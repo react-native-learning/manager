@@ -10,10 +10,16 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-import currencyUlti from '../../utils/currencyUlti';
-// import { setTimeout } from 'timers';
+import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
 
-export default class HomeScreen extends Component {
+import * as Actions from "../../actions";
+
+import currencyUlti from '../../utils/currencyUlti';
+
+import { HeaderComp, FooterComp } from '../../components/common'
+
+class HomeScreen extends Component {
 
   state = {
     country: 'Romania',
@@ -96,6 +102,12 @@ export default class HomeScreen extends Component {
     // console.log('this.state 2', this.state);
   }
 
+  _onGoToResult() {
+    // TODO check selected
+    console.log('dkm 2');
+    this.props.goToResult();
+    console.log('dkm 3');
+  }
 
   render() {
     var list = this.state.allCurrency.map((item, index) => {
@@ -161,7 +173,11 @@ export default class HomeScreen extends Component {
               <View style={styles.select_1}>
                 <View style={styles.buttonContainer}>
                   <Button scolor="#009EDF" title="CONTINUER"
-                    onPress={() => { /*TODO*/ }} />
+                    onPress={() => {
+
+                      console.log('dkm 1');
+                      this._onGoToResult()
+                    }} />
                 </View>
               </View>
 
@@ -202,11 +218,22 @@ export default class HomeScreen extends Component {
         </View>
         {/* footer */}
         <View style={styles.footer}>
+          <FooterComp />
         </View>
       </View>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    nav: state.nav
+  }
+}
+
+const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 
 const styles = StyleSheet.create({
   container: {
@@ -224,7 +251,7 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   contain: {
-    flex: 10,
+    flex: 8,
     flexDirection: 'column',
     margin: 5
   },
@@ -291,7 +318,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     margin: 10,
-    marginTop: 30,
+    marginTop: 15,
   },
   form_continuer_text: {
     color: '#276EB0',
