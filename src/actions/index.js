@@ -9,6 +9,7 @@ import {
   GOTO_LOGIN,
   GOTO_SIGNUP,
   GOTO_RESULT,
+  GOTO_BACK,
 
   SET_EXCHANGE
 } from './types';
@@ -96,6 +97,14 @@ export const goToResult = () => {
   console.log('action:goToResult');
   return {
     type: GOTO_RESULT
+  }
+}
+
+export const onGoBack = (router) => {
+  console.log('action:onGoBack:router', router);
+  return {
+    type: GOTO_BACK,
+    router
   }
 }
 

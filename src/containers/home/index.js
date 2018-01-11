@@ -182,7 +182,7 @@ class HomeScreen extends Component {
                   <Button scolor="#009EDF" title="CONTINUER"
                     onPress={() => {
 
-                      console.log('dkm 1');
+                      console.log('Button:CONTINUER');
                       this._onGoToResult()
                     }} />
                 </View>
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     backgroundColor: '#fdfeff',
     borderBottomWidth: 0,
     borderColor: '#000000',

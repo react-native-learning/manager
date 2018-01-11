@@ -5,7 +5,8 @@ import {
     GOTO_HOME,
     GOTO_LOGIN,
     GOTO_SIGNUP,
-    GOTO_RESULT
+    GOTO_RESULT,
+    GOTO_BACK
 } from '../actions/types';
 
 // //Force a Init of the main router
@@ -49,6 +50,12 @@ const NavReducer = (state, action) => {
         case GOTO_RESULT:
             newState = AppNavigator.router.getStateForAction(
                 NavigationActions.navigate({ routeName: 'result' }),
+                state
+            );
+            break;
+        case GOTO_BACK:
+            newState = AppNavigator.router.getStateForAction(
+                NavigationActions.navigate({ routeName: action.router }),
                 state
             );
             break;

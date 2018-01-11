@@ -8,7 +8,7 @@ const renderTitle = (headerText) => {
     }
 }
 
-const renderLeftBtn = (isLogo) => {
+const renderLeftBtn = (isLogo, nav) => {
     if (isLogo) {
         return (
             <Thumbnail
@@ -50,7 +50,7 @@ const HeaderComp = ({
             shadowOpacity: 1.0
         }}>
             <Left>
-                {renderLeftBtn(isLogo)}
+                {renderLeftBtn(isLogo, nav)}
             </Left>
             <Body>
                 {renderTitle(headerText)}
