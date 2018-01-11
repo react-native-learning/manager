@@ -7,7 +7,8 @@ import {
     GOTO_SIGNUP,
     GOTO_RESULT,
     GOTO_BACK,
-    GOTO_PAYMENT_TYPE
+    GOTO_PAYMENT_TYPE,
+    GOTO_SELECT_DATE
 } from '../actions/types';
 
 // //Force a Init of the main router
@@ -63,6 +64,12 @@ const NavReducer = (state, action) => {
         case GOTO_PAYMENT_TYPE:
             newState = AppNavigator.router.getStateForAction(
                 NavigationActions.navigate({ routeName: 'selectPayment' }),
+                state
+            );
+            break;
+        case GOTO_SELECT_DATE:
+            newState = AppNavigator.router.getStateForAction(
+                NavigationActions.navigate({ routeName: 'selectDate' }),
                 state
             );
             break;

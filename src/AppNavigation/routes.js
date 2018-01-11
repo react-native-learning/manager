@@ -4,6 +4,7 @@ import HomeScreen from '../containers/home';
 import SideBar from '../containers/sideBar';
 import ResultScreen from '../containers/result';
 import BookingPayment from '../containers/bookingSelectPaymentType';
+import BookingSelectDate from '../containers/bookingSelectDate';
 
 const Routes = {
   login: {
@@ -40,6 +41,12 @@ const Routes = {
     screen: BookingPayment,
     navigationOptions: {
       title: 'Select Payment',
+    }
+  },
+  selectDate: {
+    screen: BookingSelectDate,
+    navigationOptions: {
+      title: 'Select Date',
     }
   }
 };

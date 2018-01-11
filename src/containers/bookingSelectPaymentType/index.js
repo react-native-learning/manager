@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 import { Button } from 'native-base';
 
 import { bindActionCreators } from "redux";
@@ -30,6 +30,12 @@ export class ButtonWithoutColor extends Component {
 }
 
 class BookingPayment extends Component {
+
+  _onGoToSelectDate() {
+    console.log('goToPaymentType')
+    this.props.onGoToSelectDate();
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -50,7 +56,13 @@ class BookingPayment extends Component {
           <View style={styles.form_2}>
             <View style={styles.contain_form_2}>
               <Text style={styles.text}>Sélectionnez votre mode de récupération</Text>
-              <ButtonWithColor label='Retrait en agence' />
+              <View style={styles.button}>
+                <TouchableHighlight
+                  onPress={this._onGoToSelectDate.bind(this)}
+                >
+                  <Text style={{textAlign: 'center'}}>Retrait en agence</Text>
+                </TouchableHighlight>
+              </View>
               <ButtonWithoutColor label='Livraison à domicile' />
             </View>
           </View>

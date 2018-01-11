@@ -12,7 +12,8 @@ import {
   GOTO_BACK,
 
   SET_EXCHANGE,
-  GOTO_PAYMENT_TYPE
+  GOTO_PAYMENT_TYPE,
+  GOTO_SELECT_DATE
 } from './types';
 
 // import firebase from 'firebase';
@@ -105,6 +106,13 @@ export const goToPaymentType = () => {
   console.log('action:goToPaymentType');
   return {
     type: GOTO_PAYMENT_TYPE
+  }
+}
+
+export const onGoToSelectDate = () => {
+  console.log('action:onGoToSelectDate');
+  return {
+    type: GOTO_SELECT_DATE
   }
 }
 
