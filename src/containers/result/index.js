@@ -24,7 +24,8 @@ class Result extends Component {
 
     rateFrom: '',
     rateTo: '',
-    amount: ''
+    amount: 0,
+    exchanged: 0
   };
 
   constructor(props) {
@@ -47,6 +48,14 @@ class Result extends Component {
         rateFrom: res.rateFrom,
         rateTo: res.rateTo
       });
+    })
+  }
+
+  _onChangeAmount(amount) {
+    console.log(amount);
+    this.setState({
+      amount: amount,
+      exchanged: amount * this.state.rateFrom
     })
   }
 
@@ -95,7 +104,8 @@ class Result extends Component {
                 style={styles.img} />
               <Text style={styles.text}>{this.props.currency.currencyFrom.unit}</Text>
               <Input placeholder='SaiSir Un montant' style={styles.textInput}
-                
+                value={this.state.amount}
+                onChangeText={(text) => this._onChangeAmount(text)}
               />
               <Text style={styles.textrigh}>{this.props.currency.currencyFrom.unit}</Text>
             </Item>
@@ -103,7 +113,10 @@ class Result extends Component {
               <Thumbnail square size={40} source={{ uri: this.props.currency.currencyTo.flg }}
                 style={styles.img} />
               <Text style={styles.text}>{this.props.currency.currencyTo.unit}</Text>
-              <Input placeholder='' style={styles.textInput} />
+              <Text style={styles.textInput}>{this.state.exchanged}</Text>
+              {/* <Input placeholder='' style={styles.textInput}
+                value={this.state.exchanged}
+              /> */}
               <Text style={styles.textrigh}>{this.props.currency.currencyTo.unit}</Text>
             </Item>
             <View style={{ justifyContent: 'center', alignItems: 'center', }}>
