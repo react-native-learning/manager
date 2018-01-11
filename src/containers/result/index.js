@@ -5,51 +5,49 @@ import {
   View,
   Dimensions,
   Image,
-  TextInput,
-  Text,
-  Button,
   TouchableHighlight
 } from 'react-native';
+import { Container, Header, Footer, Content, List, ListItem, Thumbnail, Text, Body, Item, Input, Icon } from 'native-base';
+import ToggleSwitch from 'toggle-switch-react-native';
+
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 
 import * as Actions from "../../actions";
-
-import { HeaderComp, FooterComp } from '../../components/common'
+import { HeaderComp, FooterComp } from '../../components/common';
+import currencyUlti from '../../utils/currencyUlti';
 
 class Result extends Component {
+
+  state = {
+    activeSwitch: 1,
+
+    rateFrom: '',
+    rateTo: '',
+    amount: ''
+  };
 
   constructor(props) {
     super(props);
 
-    // this.state = {
-    //   currencyInPut: 0,
-    //   currencyOutPut: 0
-    // }
+    console.log('this.props.currency', this.props.currency);
 
-    // let getExchangeRate = new Promise((res) => {
-    //   // setTimeout(() => {
-    //   res(currencyUlti.getExchangeRate(this.props.));
-    //   // }, 2000);
-    // })
+    let getExchangeRate = new Promise((res) => {
+      // setTimeout(() => {
+      res(currencyUlti.getExchangeRate(
+        this.props.currency.currencyFrom,
+        this.props.currency.currencyTo
+      ));
+      // }, 2000);
+    })
 
-    // getAllCurrency.then(res => {
-    //   console.log('res', res);
-    //   this.setState({
-    //     allCurrency: res.currencies,
-    //     selected: {
-    //       currencyFrom: {
-    //         unit: res.currencies[0].unit,
-    //         flg: res.currencies[0].flg,
-    //       },
-    //       currencyTo: {
-    //         unit: res.currencies[0].unit,
-    //         flg: res.currencies[0].flg,
-    //       }
-    //     }
-    //   });
-    //   // console.log('this.state.selected', this.state.selected);
-    // })
+    getExchangeRate.then(res => {
+      console.log('res', res);
+      this.setState({
+        rateFrom: res.rateFrom,
+        rateTo: res.rateTo
+      });
+    })
   }
 
   _onGoBack() {
@@ -72,26 +70,97 @@ class Result extends Component {
           {/* <Icon name="menu" /> */}
         </View>
 
-        {/* <TextInput
-          placeholderTextColor="#FFF"
-          placeholder="from currency"
-          onChangeText={this.onPasswordChange.bind(this)}
-          value={this.props.currencyInPut}
-        />
-        <TextInput
-          placeholderTextColor="#FFF"
-          placeholder="to currency"
-          value={this.state.currencyOutPut}
-          editable={false}
-        /> */}
+        <Container style={styles.wrapper}>
+          <View style={{ flex: 2 }}>
+            <Item style={{ flex: 1, flexDirection: 'row', }}>
+              <Text style={{ textAlign: 'left', fontSize: 11, flex: 6 }}>Mise a jour2016-09-05 UTC</Text>
+            </Item>
+          </View>
+          <View style={{ marginBottom: '2%', justifyContent: 'center', alignItems: 'center', }}>
+            <Item style={{ borderColor: '#ffffff' }}>
+              <Text style={{ paddingRight: '2%', fontWeight: 'bold', }}>Cash</Text>
+              <ToggleSwitch
+                isOn={false}
+                onColor='#009edf'
+                offColor='#009edf'
+                size='medium'
+                onToggle={(isOn) => console.log('changed to : ', isOn)}
+              />
+              <Text style={{ paddingLeft: '2%', color: '#89898a' }}>Verement</Text>
+            </Item>
+          </View>
+          <View style={{ flex: 6 }}>
+            <Item style={styles.wrap}>
+              <Thumbnail square size={20} source={{ uri: this.props.currency.currencyFrom.flg }}
+                style={styles.img} />
+              <Text style={styles.text}>{this.props.currency.currencyFrom.unit}</Text>
+              <Input placeholder='SaiSir Un montant' style={styles.textInput}
+                
+              />
+              <Text style={styles.textrigh}>{this.props.currency.currencyFrom.unit}</Text>
+            </Item>
+            <Item style={styles.wrap}>
+              <Thumbnail square size={40} source={{ uri: this.props.currency.currencyTo.flg }}
+                style={styles.img} />
+              <Text style={styles.text}>{this.props.currency.currencyTo.unit}</Text>
+              <Input placeholder='' style={styles.textInput} />
+              <Text style={styles.textrigh}>{this.props.currency.currencyTo.unit}</Text>
+            </Item>
+            <View style={{ justifyContent: 'center', alignItems: 'center', }}>
+              <Text style={{ marginTop: '5%', textAlign: 'center', color: '#5fa0c9', }}>Taux de change</Text>
+            </View>
+            <View>
+              <Text style={{ fontWeight: 'bold', fontSize: 35, textAlign: 'center' }}>
+                1,00
+                <Text style={{ fontSize: 12, }}>
+                  {this.props.currency.currencyFrom.unit}
+                </Text>
+                <Text style={{ fontSize: 24, paddingLeft: '6', paddingRight: '6' }}>
+                  =
+            </Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 35 }}>
+                  {this.state.rateFrom}
+                </Text>
+                <Text style={{ fontSize: 12, }}>
+                  {this.props.currency.currencyTo.unit}
+                </Text>
+              </Text>
+              <Text style={{ fontWeight: 'bold', fontSize: 30, textAlign: 'center', color: '#89898a' }}>
+                1,00
+                <Text style={{ fontSize: 12, color: '#89898a' }}>
+                  {this.props.currency.currencyTo.unit}
+                </Text>
+                <Text style={{ fontSize: 24, marginLeft: '5%', color: '#89898a' }}>
+                  =
+            </Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 30, color: '#89898a' }}>
+                  {this.state.rateTo}
+                </Text>
+                <Text style={{ fontSize: 12, }}>
+                  {this.props.currency.currencyFrom.unit}
+                </Text>
+              </Text>
 
+            </View>
+          </View>
+          <View style={[styles.footer]}>
+            <View style={[styles.bgButton3]}>
+              <Item>
+                <Image source={require('./images/icon-bottom.png')} />
+                <Text style={{ textAlign: 'center', color: '#6fa8cd', paddingLeft: '2%' }}>Suivere Lorem Hello Word ></Text>
+              </Item>
+            </View>
+            <View style={[styles.bgButton2]}>
+              <Text style={styles.textButton2}>SIMULER UN TAX</Text>
+            </View>
 
-        <Text>
-          {this.props.currencyInPut}
-        </Text>
-        <Text>
-          {this.props.currencyOutPut}
-        </Text>
+            <View style={[styles.bgButton]}>
+              <Text style={styles.textButton}>COMMANDER</Text>
+            </View>
+
+          </View>
+
+        </Container>
       </View>
     );
   }
@@ -99,7 +168,8 @@ class Result extends Component {
 
 const mapStateToProps = state => {
   return {
-    nav: state.nav
+    nav: state.nav,
+    currency: state.currency
   }
 }
 
@@ -113,7 +183,7 @@ const styles = {
     backgroundColor: '#fdfeff'
   },
   header: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     // alignItems: 'sta'
@@ -211,4 +281,67 @@ const styles = {
     flexDirection: 'column',
     margin: 10,
   },
+  footer: { flex: 4, flexDirection: 'column', },
+  bgButton: {
+    backgroundColor: '#009edf',
+    flex: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#cccccc',
+    marginTop: '3%',
+  },
+  bgButton2: {
+    borderWidth: 1,
+    borderColor: '#cccccc',
+    backgroundColor: '#ffffff',
+    flex: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bgButton3: {
+    flex: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textButton: { color: '#ffffff', textAlign: 'center' },
+  textButton2: { color: '#333333', textAlign: 'center' },
+  text: {
+    fontSize: 8,
+    marginLeft: '3%',
+    paddingTop: 2,
+  },
+  textrigh: {
+    marginRight: '3%',
+    fontSize: 11,
+    textAlign: 'right'
+  },
+
+  textInput: {
+    textAlign: 'center',
+    color: '#cccccc'
+  },
+  img: {
+    width: '10%',
+    height: '10%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  wrap: {
+    borderTopWidth: 1,
+    borderColor: '#cccccc',
+    paddingBottom: '2%',
+    paddingTop: '2%',
+  },
+
+  wrapper: {
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    paddingBottom: '5%',
+  },
+  img: {
+    width: 50,
+    height: 50
+  }
 };

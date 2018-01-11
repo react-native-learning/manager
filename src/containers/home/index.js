@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     backgroundColor: '#fdfeff',
     borderBottomWidth: 0,
     borderColor: '#000000',

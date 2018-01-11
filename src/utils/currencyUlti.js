@@ -26,7 +26,8 @@ export default currencyUlti = {
     return {
       "resultCode": 200,
       "resultMsg": "",
-      "rate": 37.77
+      "rateFrom": 37.77,
+      "rateTo": 0.112
     }
   }
 }
