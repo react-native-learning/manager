@@ -104,9 +104,16 @@ class HomeScreen extends Component {
 
   _onGoToResult() {
     // TODO check selected
-    console.log('dkm 2');
+    console.log('home:_onGoToResult');
+    this._onSetCurrencySelected();
     this.props.goToResult();
-    console.log('dkm 3');
+  }
+
+  _onSetCurrencySelected() {
+    this.props.setCurrencySelected({
+      currencyFrom: this.state.selected.currencyFrom,
+      currencyTo: this.state.selected.currencyTo
+    });
   }
 
   render() {

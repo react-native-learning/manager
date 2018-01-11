@@ -8,7 +8,9 @@ import {
   GOTO_HOME,
   GOTO_LOGIN,
   GOTO_SIGNUP,
-  GOTO_RESULT
+  GOTO_RESULT,
+
+  SET_EXCHANGE
 } from './types';
 
 // import firebase from 'firebase';
@@ -94,5 +96,14 @@ export const goToResult = () => {
   console.log('action:goToResult');
   return {
     type: GOTO_RESULT
+  }
+}
+
+export const setCurrencySelected = ({ currencyFrom, currencyTo }) => {
+  console.log('action:setCurrencySelected', { currencyFrom, currencyTo });
+  return {
+    type: SET_EXCHANGE,
+    currencyFrom,
+    currencyTo
   }
 }

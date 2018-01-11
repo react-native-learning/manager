@@ -9,10 +9,15 @@ const INITAL_STATE = {
 };
 
 export default (state = INITAL_STATE, action) => {
-  console.log('authReduce:action', action);
+  console.log('currencyReducer:action', action);
   switch (action.type) {
     case SET_EXCHANGE:
-      return { ...state, exchange: action.payload };
+      console.log('currencyReducer:SET_EXCHANGE');
+      return {
+        ...state,
+        currencyFrom: action.currencyFrom,
+        currencyTo: action.currencyTo
+      };
     default:
       return state;
   }
